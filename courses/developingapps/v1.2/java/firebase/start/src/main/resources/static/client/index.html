@@ -34,9 +34,32 @@
     </div>
 
 
-    
 
-    
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<!--<script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>-->
+<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-analytics.js"></script>
+
+    <script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyAuyE2fvkC8fqTuIlHEmM4h8JH66QATYPg",
+    authDomain: "qwiklabs-gcp-00-44aa434244db.firebaseapp.com",
+    databaseURL: "https://qwiklabs-gcp-00-44aa434244db.firebaseio.com",
+    projectId: "qwiklabs-gcp-00-44aa434244db",
+    storageBucket: "qwiklabs-gcp-00-44aa434244db.appspot.com",
+    messagingSenderId: "1015872150608",
+    appId: "1:1015872150608:web:51bcb4bb06af48a978c555",
+    measurementId: "G-LS53W53R5K"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
 
     <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.js'></script>
     <script src='//ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-route.js'></script>
