@@ -46,7 +46,7 @@ public class ConsoleApp {
 
     // TODO: Create the languageService
 
-    
+
 
     // END TODO
 
@@ -58,78 +58,78 @@ public class ConsoleApp {
 
     // TODO: Create the Pub/Sub subscription name
 
-    
+      SubscriptionName subscription = SubscriptionName.create(projectId, "worker1-subscription");
 
     // END TODO
     
     // TODO: Create the subscriptionAdminClient
 
-    
+      try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
 
-      // TODO: create the Pub/Sub subscription using the subscription name and topic
+          // TODO: create the Pub/Sub subscription using the subscription name and topic
 
-      
+          subscriptionAdminClient.createSubscription(
+                  subscription, topic,
+                  PushConfig.getDefaultInstance(), 0);
 
-      // END TODO
-      
-    
+          // END TODO
+
+      }
 
     // END TODO
 
     // The message receiver processes Pub/Sub subscription messages
-    MessageReceiver receiver = new MessageReceiver() {
-        // Override the receiveMessage(...) method
-        @Override
-        public void receiveMessage(PubsubMessage message, AckReplyConsumer consumer) {
-            // TODO: Extract the message data as a JSON String
+      // Override the receiveMessage(...) method
+      MessageReceiver receiver = (message, consumer) -> {
+          // TODO: Extract the message data as a JSON String
 
-            
+          String fb = message.getData().toStringUtf8();
 
-            // END TODO
+          // END TODO
 
-            // TODO: Ack the message
+          // TODO: Ack the message
 
-            
+          consumer.ack();
 
-            // END TODO
+          // END TODO
 
-            try {
-                // Object mapper deserializes the JSON String
-                ObjectMapper mapper = new ObjectMapper();
+          try {
+              // Object mapper deserializes the JSON String
+              ObjectMapper mapper = new ObjectMapper();
 
-                // TODO: Deserialize the JSON String representing the feedback
+              // TODO: Deserialize the JSON String representing the feedback
 
-                
 
-                // END TODO
 
-                // TODO: Use the Natural Language API to analyze sentiment
+              // END TODO
 
-                
+              // TODO: Use the Natural Language API to analyze sentiment
 
-                // END TODO
+              Feedback feedback = mapper.readValue(fb, Feedback.class);
+              System.out.println("Feedback received: " + feedback);
 
-                // TODO: Set the feedback object sentiment score
+              // END TODO
 
-                
+              // TODO: Set the feedback object sentiment score
 
-                // END TODO
 
-                // TODO: Insert the feedback into Cloud Spanner
 
-                
+              // END TODO
 
-                // END TODO
+              // TODO: Insert the feedback into Cloud Spanner
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
+
+
+              // END TODO
+
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      };
 
     // TODO: Declare a subscriber
 
-    
+    Subscriber subscriber = null;
 
     // END TODO
 
@@ -138,14 +138,21 @@ public class ConsoleApp {
         // TODO: Initialize the subscriber using its default builder
         // with a subscription and receiver
 
-        
+        subscriber = Subscriber.defaultBuilder(subscription, receiver).build();
 
         // END TODO
 
         // TODO: Add a listener to the subscriber
 
-        
-        
+
+        subscriber.addListener(
+                new Subscriber.Listener() {
+                    @Override
+                    public void failed(Subscriber.State from, Throwable failure) {
+                        System.err.println(failure);
+                    }
+                },
+                MoreExecutors.directExecutor());
 
 
 
@@ -154,7 +161,7 @@ public class ConsoleApp {
 
         // TODO: Start subscribing
 
-        
+        subscriber.startAsync().awaitRunning();
         
 
         // END TODO
@@ -167,14 +174,18 @@ public class ConsoleApp {
         
         // TODO: Stop subscribing
 
-        
+        if (subscriber != null) {
+            subscriber.stopAsync().awaitTerminated();
+        }
 
         // END TODO
         
 
         // TODO: Delete the subscription
 
-        
+        try (SubscriptionAdminClient subscriptionAdminClient = SubscriptionAdminClient.create()) {
+            subscriptionAdminClient.deleteSubscription(subscription);
+        }
         
 
 
