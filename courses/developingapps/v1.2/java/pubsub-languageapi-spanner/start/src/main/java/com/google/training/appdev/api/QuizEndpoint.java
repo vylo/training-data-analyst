@@ -43,7 +43,8 @@ public class QuizEndpoint {
 
     // TODO: Declare the publishService
 
-    
+    @Autowired
+    private PublishService publishService;
 
 
     // END TODO
@@ -75,7 +76,7 @@ public class QuizEndpoint {
 
         // TODO: Publish the feedback to Pub/Sub
 
-        
+        publishService.publishFeedback(feedback);
 
         // END TODO
 

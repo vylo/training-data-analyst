@@ -17,14 +17,15 @@ package com.google.training.appdev.services.gcp.datastore;
 
 import com.google.cloud.datastore.*;
 import com.google.training.appdev.services.gcp.domain.Question;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 @Service
+@Slf4j
 public class QuestionService {
 
 
@@ -33,6 +34,9 @@ public class QuestionService {
     private final KeyFactory keyFactory = datastore.newKeyFactory().setKind(ENTITY_KIND);
 
     public Key createQuestion(Question question){
+        log.info("GOOGLE_APPLICATION_CREDENTIALS={}", System.getenv("GOOGLE_APPLICATION_CREDENTIALS"));
+
+
         Key key = datastore.allocateId(keyFactory.newKey());
         Entity questionEntity = Entity.newBuilder(key)
                 .set(Question.QUIZ, question.getQuiz())

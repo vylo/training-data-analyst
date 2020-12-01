@@ -40,7 +40,8 @@ import java.io.IOException;
 public class PublishService {
     // TODO: Declare and initialize two Strings, PROJECT_ID and TOPIC_NAME
 
-    
+    private static final String PROJECT_ID = ServiceOptions.getDefaultProjectId();
+    private static final String TOPIC_NAME = "feedback";
 
     // END TODO
 
@@ -51,13 +52,13 @@ public class PublishService {
 
         // TODO: Create a TopicName object for the feedback topic in the project
 
-        
+        TopicName topicName = TopicName.create(PROJECT_ID, TOPIC_NAME);
 
         // END TODO
 
         // TODO: Declare a publisher for the topic
-        
-        
+
+        Publisher publisher = null;
 
         // END TODO
 
@@ -68,25 +69,25 @@ public class PublishService {
 
             // TODO: Initialize the publisher using a builder and the topicName
 
-            
+            publisher = Publisher.defaultBuilder(topicName).build();
 
             // END TODO
             
             // TODO: Copy the serialized message to a byte string
 
-            
+            ByteString data = ByteString.copyFromUtf8(feedbackMessage);
 
             // END TODO
 
             // TODO: Create a Pub/Sub message using a builder; set the message data
 
-            
+            PubsubMessage pubsubMessage = PubsubMessage.newBuilder().setData(data).build();
 
             // END TODO
 
             // TODO: Publish the message, assign to the messageIdFuture
 
-            
+            messageIdFuture = publisher.publish(pubsubMessage);
 
             // END TODO
         
@@ -94,7 +95,8 @@ public class PublishService {
 
             // TODO: Get the messageId from the messageIdFuture
 
-            String messageId = "Replace string with: messageIdFuture.get();";
+//            String messageId = "Replace string with: messageIdFuture.get();";
+            String messageId = messageIdFuture.get();
 
             // END TODO
 
@@ -102,7 +104,9 @@ public class PublishService {
 
             // TODO: Shutdown the publisher to free up resources
 
-            
+            if (publisher != null) {
+                publisher.shutdown();
+            }
             
 
             // END TODO

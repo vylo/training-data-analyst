@@ -23,7 +23,7 @@
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 
-	<name>appdev</name>
+	<name>pubsub-start</name>
 	<description>Quiz Application</description>
 
 	<parent>
@@ -112,6 +112,13 @@
         <artifactId>google-cloud-core</artifactId>
         <version>1.6.0</version>
     </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.16</version>
+                <scope>provided</scope>
+            </dependency>
 
 
     <dependency>
