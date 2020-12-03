@@ -52,13 +52,13 @@ public class ConsoleApp {
 
     // TODO: Create the spannerService
 
-    
+      SpannerService spannerService = SpannerService.create();
 
-    // END TODO
+      // END TODO
 
     // TODO: Create the Pub/Sub subscription name
 
-      SubscriptionName subscription = SubscriptionName.create(projectId, "worker2-subscription");
+      SubscriptionName subscription = SubscriptionName.create(projectId, "worker3-subscription");
 
     // END TODO
     
@@ -120,7 +120,8 @@ public class ConsoleApp {
 
               // TODO: Insert the feedback into Cloud Spanner
 
-
+              spannerService.insertFeedback(feedback);
+              System.out.println("Feedback saved: " + feedback);
 
               // END TODO
 

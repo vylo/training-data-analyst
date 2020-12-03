@@ -31,47 +31,65 @@ public class SpannerService {
     public void insertFeedback(Feedback feedback){
         // TODO: Get a reference to the Spanner API
 
-        
+        SpannerOptions options = SpannerOptions.newBuilder().build();
+        Spanner spanner = options.getService();
+
 
         // END TODO
 
         try {
             // TODO: Get a reference to the quiz-instance and its quiz-database
 
-            
+            DatabaseId databaseId = DatabaseId.of(options.getProjectId(), "quiz-instance", "quiz-database");
 
             // END TODO
 
             // TODO: Get a client for the quiz-database
 
-            
+            DatabaseClient databaseClient = spanner.getDatabaseClient(databaseId);
 
             // END TODO
 
             // TODO: Create a list to hold mutations against the database
 
-            
+            List<Mutation> mutations = new ArrayList<>();
 
             // END TODO
 
             // TODO: Add an insert mutation
 
-            
+            mutations.add(
+
                     // TODO: Build a new insert mutation
 
-                    
-
-
-
-
+                    Mutation.newInsertBuilder("Feedback")
+                            .set("feedbackId")
+                            .to(feedback.getEmail() + '_' +
+                                    feedback.getQuiz() + "_" +
+                                    feedback.getTimestamp())
+                            .set("email")
+                            .to(feedback.getEmail())
+                            .set("quiz")
+                            .to(feedback.getQuiz())
+                            .set("feedback")
+                            .to(feedback.getFeedback())
+                            .set("rating")
+                            .to(feedback.getRating())
+                            .set("score")
+                            .to(
+                                    feedback.getSentimentScore())
+                            .set("timestamp")
+                            .to(feedback.getTimestamp())
+                            .build()
 
                     // END TODO
-                    
+            );
+
             // END TODO
 
             // TODO: Write the change to Spanner
 
-            
+            databaseClient.write(mutations);
 
             // END TODO
         }catch(Exception e){
