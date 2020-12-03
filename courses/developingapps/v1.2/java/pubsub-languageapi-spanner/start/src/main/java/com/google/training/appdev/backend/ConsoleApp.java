@@ -46,7 +46,7 @@ public class ConsoleApp {
 
     // TODO: Create the languageService
 
-
+      LanguageService languageService = LanguageService.create();
 
     // END TODO
 
@@ -58,7 +58,7 @@ public class ConsoleApp {
 
     // TODO: Create the Pub/Sub subscription name
 
-      SubscriptionName subscription = SubscriptionName.create(projectId, "worker1-subscription");
+      SubscriptionName subscription = SubscriptionName.create(projectId, "worker2-subscription");
 
     // END TODO
     
@@ -112,7 +112,9 @@ public class ConsoleApp {
 
               // TODO: Set the feedback object sentiment score
 
-
+              float sentimentScore = languageService.analyzeSentiment(feedback.getFeedback());
+              feedback.setSentimentScore(sentimentScore);
+              System.out.println("Score is: " + sentimentScore);
 
               // END TODO
 
