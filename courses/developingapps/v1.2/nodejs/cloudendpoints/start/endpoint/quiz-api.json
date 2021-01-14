@@ -1,6 +1,6 @@
 {
   "swagger": "2.0",
-  "host": "8080-1c82a6ec-36a8-4cac-85d2-f8c5b0fb9caa.ql-europe-west4-edoq.cloudshell.dev",
+  "host": "quiz-api.endpoints.qwiklabs-gcp-04-bddd6e4b6f10.cloud.goog",
   "schemes": [
     "https",
     "http"
