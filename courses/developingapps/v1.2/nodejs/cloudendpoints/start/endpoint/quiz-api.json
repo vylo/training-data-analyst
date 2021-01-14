@@ -1,6 +1,12 @@
 {
   "swagger": "2.0",
   "host": "quiz-api.endpoints.qwiklabs-gcp-04-bddd6e4b6f10.cloud.goog",
+  "x-google-endpoints": [
+    {
+      "name": "quiz-api.endpoints.qwiklabs-gcp-04-bddd6e4b6f10.cloud.goog",
+      "target": "34.122.241.232"
+    }
+  ],
   "schemes": [
     "https",
     "http"
